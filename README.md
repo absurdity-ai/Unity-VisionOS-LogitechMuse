@@ -1,2 +1,2 @@
 # Unity-VisionOS-LogitechMuse
-Unity wrapper for https://developer.apple.com/documentation/gamecontroller/gcstylus
+Unity 6.2 wrapper for https://developer.apple.com/documentation/gamecontroller/gcstylus
