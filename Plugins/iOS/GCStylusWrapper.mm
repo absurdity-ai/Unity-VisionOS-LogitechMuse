@@ -36,6 +36,10 @@ static id _controllerDisconnectedObserver = nil;
 void GCStylus_Initialize() {
     @autoreleasepool {
         // Monitor for controller connections
+        // Note: In actual usage, GCStylus data comes from UITouch events.
+        // This wrapper provides the data structure and storage, while the actual
+        // stylus data should be set via GCStylus_SetData() from Unity's touch handling
+        // or a custom UITouch event integration.
         _controllerConnectedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:GCControllerDidConnectNotification
                                                           object:nil
                                                            queue:[NSOperationQueue mainQueue]
@@ -57,11 +61,15 @@ void GCStylus_Initialize() {
 // Update stylus data (should be called each frame)
 void GCStylus_Update() {
     @autoreleasepool {
+        // Note: This function is provided for consistency with Unity's update pattern.
+        // In actual usage, stylus data is updated via GCStylus_SetData() which should
+        // be called from Unity's touch event handling or custom UITouch integration.
+        // The GCStylus API from Apple requires accessing UITouch properties directly,
+        // which Unity already handles through its Input.touches system.
+        
         if (@available(iOS 14.0, *)) {
-            // Get the current stylus instance
-            // Note: GCStylus is typically accessed through touch events
-            // This is a simplified version for demonstration
-            
+            // GCStylus instance would only be set if we had custom UITouch event handling
+            // For now, data is updated through GCStylus_SetData() calls from Unity
             if (_currentStylus != nil) {
                 currentStylusData.azimuthAngle = _currentStylus.azimuthAngle;
                 currentStylusData.altitudeAngle = _currentStylus.altitudeAngle;

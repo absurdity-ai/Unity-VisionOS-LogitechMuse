@@ -123,7 +123,10 @@ namespace AbsurdityAI.VisionOS.Input
 
         private void OnDrawGizmos()
         {
-            if (!drawGizmos || !Application.isPlaying)
+            if (!drawGizmos)
+                return;
+
+            if (!Application.isPlaying)
                 return;
 
             if (currentData.touching || currentData.isInRange)

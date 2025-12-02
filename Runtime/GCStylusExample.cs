@@ -69,6 +69,14 @@ namespace AbsurdityAI.VisionOS.Examples
                 stylus3DIndicator.rotation = rotation;
 
                 lastPosition = position;
+
+                // Add to stroke if touching
+                if (data.touching && strokeRenderer != null)
+                {
+                    int currentCount = strokeRenderer.positionCount;
+                    strokeRenderer.positionCount = currentCount + 1;
+                    strokeRenderer.SetPosition(currentCount, position);
+                }
             }
 
             // Log data for debugging
@@ -82,9 +90,11 @@ namespace AbsurdityAI.VisionOS.Examples
         {
             Debug.Log("Stylus touch began!");
             
+            // Reset stroke renderer for a new stroke
             if (strokeRenderer != null)
             {
-                strokeRenderer.positionCount = 0;
+                strokeRenderer.positionCount = 1;
+                strokeRenderer.SetPosition(0, lastPosition);
             }
         }
 
