@@ -2,6 +2,11 @@
 //  GCStylusWrapper.mm
 //  Unity wrapper for Apple GameController GCStylus
 //
+//  Note: GCStylus is typically accessed through UITouch events on iOS/visionOS.
+//  The UITouch class has properties like azimuthAngle, altitudeAngle, and force
+//  that provide stylus-specific data when an Apple Pencil is used.
+//  This wrapper provides a C interface for Unity to access that data.
+//
 
 #import <Foundation/Foundation.h>
 #import <GameController/GameController.h>
@@ -24,31 +29,28 @@ typedef struct {
 // Global storage for stylus data
 static StylusData currentStylusData = {0};
 static GCStylus* _currentStylus = nil;
+static id _controllerConnectedObserver = nil;
+static id _controllerDisconnectedObserver = nil;
 
 // Initialize stylus monitoring
 void GCStylus_Initialize() {
     @autoreleasepool {
-        // Monitor for stylus changes
-        [[NSNotificationCenter defaultCenter] addObserverForName:GCControllerDidConnectNotification
+        // Monitor for controller connections
+        _controllerConnectedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:GCControllerDidConnectNotification
                                                           object:nil
                                                            queue:[NSOperationQueue mainQueue]
                                                       usingBlock:^(NSNotification *note) {
-            GCController *controller = note.object;
-            if (controller.physicalInputProfile.buttons[GCInputButtonHome]) {
-                // This is a device that supports stylus input
-                if (@available(iOS 14.0, *)) {
-                    // Check for stylus input
-                }
-            }
+            // Controllers are connected, stylus data will be available through touch events
+            // GCStylus is accessed through UITouch events that have stylus properties
         }];
         
-        // Try to get current stylus if available
-        if (@available(iOS 14.0, *)) {
-            for (GCController *controller in [GCController controllers]) {
-                // GCStylus is accessed through device motion or specific input
-                // For now, we'll set up the structure
-            }
-        }
+        _controllerDisconnectedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:GCControllerDidDisconnectNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification *note) {
+            // Controller disconnected
+            _currentStylus = nil;
+        }];
     }
 }
 
@@ -131,7 +133,14 @@ void GCStylus_SetData(float touchX, float touchY, float azimuth, float altitude,
 // Cleanup
 void GCStylus_Shutdown() {
     @autoreleasepool {
-        [[NSNotificationCenter defaultCenter] removeObserver:nil];
+        if (_controllerConnectedObserver != nil) {
+            [[NSNotificationCenter defaultCenter] removeObserver:_controllerConnectedObserver];
+            _controllerConnectedObserver = nil;
+        }
+        if (_controllerDisconnectedObserver != nil) {
+            [[NSNotificationCenter defaultCenter] removeObserver:_controllerDisconnectedObserver];
+            _controllerDisconnectedObserver = nil;
+        }
         _currentStylus = nil;
     }
 }

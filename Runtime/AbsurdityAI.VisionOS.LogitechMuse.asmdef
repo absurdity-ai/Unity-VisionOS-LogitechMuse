@@ -4,6 +4,7 @@
     "references": [],
     "includePlatforms": [
         "iOS",
+        "VisionOS",
         "Editor"
     ],
     "excludePlatforms": [],
