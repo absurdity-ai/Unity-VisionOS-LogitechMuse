@@ -1,0 +1,19 @@
+{
+  "name": "com.absurdity.visionos.logitechmuse",
+  "version": "0.1.0",
+  "displayName": "VisionOS Logitech Muse",
+  "description": "Unity wrapper for Apple's GCStylus API (GameController Stylus) for visionOS and iOS devices, enabling support for Apple Pencil and other stylus input devices.",
+  "unity": "2022.3",
+  "keywords": [
+    "visionos",
+    "ios",
+    "stylus",
+    "apple pencil",
+    "gamecontroller",
+    "input"
+  ],
+  "author": {
+    "name": "Absurdity AI"
+  },
+  "type": "library"
+}

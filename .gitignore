@@ -1,0 +1,53 @@
+# Unity specific files
+*.unitypackage
+*.meta~
+*.meta.~*
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+# IDE specific files
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity generated files
+*-CSharpTests.xml
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Temporary files
+*.swp
+*.swo
+*~
+.#*
+\#*#

@@ -1,0 +1,17 @@
+{
+    "name": "AbsurdityAI.VisionOS.LogitechMuse",
+    "rootNamespace": "AbsurdityAI.VisionOS.Input",
+    "references": [],
+    "includePlatforms": [
+        "iOS",
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
